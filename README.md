@@ -91,6 +91,7 @@ strikeball/
 | `weapon_types` | Типы оружия |
 
 ### Схема связей
+```text
 users ──< users_roles >── roles
 │
 ├──< teams (captain_id)
@@ -100,3 +101,4 @@ users ──< users_roles >── roles
 └── team_id → teams
 
 weapon_types ──< weapons (type_id)
+```
