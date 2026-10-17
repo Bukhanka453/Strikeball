@@ -47,31 +47,32 @@
 
 ## Структура проекта
 
+```text
 strikeball/
 ├── build.gradle
 ├── gradle/
 ├── gradlew
 ├── gradlew.bat
 └── src/
-├── main/
-│ ├── java/com/example/strikeball/
-│ │ ├── StrikeballApplication.java # Точка входа
-│ │ ├── config/
-│ │ │ ├── SecurityConfig.java # Spring Security
-│ │ │ └── OpenApiConfig.java # Swagger
-│ │ ├── controller/ # HTML-контроллеры
-│ │ ├── rest/ # REST API
-│ │ ├── security/ # JWT
-│ │ ├── exception/ # Обработка ошибок
-│ │ ├── model/ # JPA-сущности
-│ │ ├── repository/ # Spring Data JPA
-│ │ └── service/ # Бизнес-логика
-│ └── resources/
-│ ├── application.properties
-│ ├── static/css/style.css
-│ └── templates/ # Thymeleaf-шаблоны
-└── test/
-
+    ├── main/
+    │   ├── java/com/example/strikeball/
+    │   │   ├── StrikeballApplication.java   # Точка входа
+    │   │   ├── config/
+    │   │   │   ├── SecurityConfig.java      # Spring Security
+    │   │   │   └── OpenApiConfig.java       # Swagger
+    │   │   ├── controller/                  # HTML-контроллеры
+    │   │   ├── rest/                        # REST API
+    │   │   ├── security/                    # JWT
+    │   │   ├── exception/                   # Обработка ошибок
+    │   │   ├── model/                       # JPA-сущности
+    │   │   ├── repository/                  # Spring Data JPA
+    │   │   └── service/                     # Бизнес-логика
+    │   └── resources/
+    │       ├── application.properties
+    │       ├── static/css/style.css
+    │       └── templates/                   # Thymeleaf-шаблоны
+    └── test/
+```
 ---
 
 ## База данных
