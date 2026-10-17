@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Оружие — Админ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Оружие</h2>
+
+        <form th:action="@{/admin/weapons}" th:object="${weapon}" method="post" class="entity-form">
+            <div class="form-group">
+                <label>Название:</label>
+                <input type="text" th:field="*{name}" class="form-input">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="form-group">
+                <label>Тип:</label>
+                <select th:field="*{type}" class="form-input">
+                    <option value="">-- Выберите тип --</option>
+                    <option th:each="t : ${types}" th:value="${t.id}" th:text="${t.name}"></option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+            </div>
+            <div class="form-group">
+                <label>Калибр:</label>
+                <input type="text" th:field="*{caliber}" class="form-input">
+                <span class="error" th:if="${#fields.hasErrors('caliber')}" th:errors="*{caliber}"></span>
+            </div>
+            <div class="form-group">
+                <label>Цена (₽):</label>
+                <input type="number" th:field="*{price}" class="form-input">
+                <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+            <div class="form-group">
+                <label>Описание:</label>
+                <textarea th:field="*{description}" class="form-input" rows="3"></textarea>
+                <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="/admin/weapons" class="btn btn-outline-small">Отмена</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

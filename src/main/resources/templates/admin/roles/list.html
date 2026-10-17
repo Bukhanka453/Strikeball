@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Роли — Админ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Роли</h2>
+        <a href="/admin" class="btn btn-outline-small">← Назад в панель</a>
+        <a href="/admin/roles/new" class="btn btn-primary" style="margin-left:10px">Добавить роль</a>
+
+        <div class="games-grid" style="margin-top:20px">
+            <div class="game-card" th:each="role : ${roles}">
+                <h3 class="game-title" th:text="${role.name}">Название</h3>
+                <p th:text="${role.description}">Описание</p>
+                <a th:href="@{/admin/roles/{id}/edit(id=${role.id})}"
+                   class="btn btn-primary btn-block">Редактировать</a>
+                <form th:action="@{/admin/roles/{id}/delete(id=${role.id})}"
+                      method="post" style="margin-top:8px">
+                    <button type="submit" class="btn btn-outline-small"
+                            onclick="return confirm('Удалить роль?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

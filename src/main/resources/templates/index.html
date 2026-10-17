@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strikeball Arena - Организация страйкбольных игр</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- Шапка сайта -->
+<header class="header">
+    <div class="container header-container">
+        <a href="/" class="logo">
+            <span class="logo-text">Strikeball Arena</span>
+        </a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link active">Главная</a></li>
+                <li><a href="/games" class="nav-link">Игры</a></li>
+                <li><a href="/teams" class="nav-link">Команды</a></li>
+                <li><a href="/locations" class="nav-link">Полигоны</a></li>
+                <li><a href="/weapons" class="nav-link">Оружие</a></li>
+                <li><a href="/users" class="nav-link">Игроки</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+            <!-- Не авторизован -->
+            <th:block sec:authorize="!isAuthenticated()">
+                <a href="/login" class="btn btn-outline">Войти</a>
+                <a href="/register" class="btn btn-primary">Регистрация</a>
+            </th:block>
+
+            <!-- Авторизован -->
+            <th:block sec:authorize="isAuthenticated()">
+        <span style="color:#fff; margin-right:10px">
+            <span sec:authentication="name"></span>
+        </span>
+                <a sec:authorize="hasRole('ADMIN')" href="/admin"
+                   class="btn btn-outline">Админ-панель</a>
+                <form th:action="@{/logout}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-primary">Выйти</button>
+                </form>
+            </th:block>
+        </div>
+    </div>
+
+</header>
+<a sec:authorize="hasAnyRole('ADMIN','ORGANIZER')"
+   href="/games/new" class="btn btn-primary">Создать игру</a>
+<!-- Герой-блок -->
+<section class="hero">
+    <div class="container hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Организуй свою <br>страйкбольную игру</h1>
+            <p class="hero-description">
+                Находи команду, создавай события и участвуй в захватывающих
+                страйкбольных баталиях с единомышленниками
+            </p>
+            <div class="hero-buttons">
+                <a href="/games/new" class="btn btn-primary btn-large">Создать игру</a>
+                <a href="/teams" class="btn btn-secondary btn-large">Найти команду</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">250+</span>
+                    <span class="stat-label">Игроков</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">34</span>
+                    <span class="stat-label">Активных игр</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Полигонов</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Предстоящие игры -->
+<section class="section games-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Предстоящие игры</h2>
+            <a href="/games" class="btn btn-outline-small">Смотреть все →</a>
+        </div>
+
+        <div class="games-grid" th:if="${upcomingGames != null && !upcomingGames.isEmpty()}">
+            <div class="game-card" th:each="game : ${upcomingGames}">
+                <div class="game-card-header">
+                    <span class="game-date" th:text="${game.date}"></span>
+                    <span class="game-status">Ожидает</span>
+                </div>
+                <h3 class="game-title" th:text="${game.name}"></h3>
+                <p class="game-location">
+                    <span th:text="${game.location.name}"></span>
+                </p>
+                <div class="game-players">
+                        <span class="players-count">
+                            <span th:text="${game.currentPlayers}"></span> /
+                            <span th:text="${game.maxPlayers}"></span> игроков
+                        </span>
+                    <div class="players-progress">
+                        <div class="progress-bar"
+                             th:style="'width: ' + (${game.currentPlayers} * 100 / ${game.maxPlayers}) + '%'">
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary btn-block">Подробнее</a>
+            </div>
+        </div>
+
+        <div class="empty-state" th:if="${upcomingGames == null || upcomingGames.isEmpty()}">
+            <p>Нет предстоящих игр. Будьте первым, кто создаст событие!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Преимущества -->
+<section class="section features-section">
+    <div class="container">
+        <h2 class="section-title text-center">Почему выбирают нас</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <h3>Качественное снаряжение</h3>
+                <p>Современные приводы, защитные очки и экипировка для комфортной игры</p>
+            </div>
+            <div class="feature-item">
+                <h3>Разнообразные полигоны</h3>
+                <p>Лесные участки, городские лабиринты и специально оборудованные площадки</p>
+            </div>
+            <div class="feature-item">
+                <h3>Активное сообщество</h3>
+                <p>Более 250 игроков, регулярные турниры и дружеские встречи</p>
+            </div>
+            <div class="feature-item">
+                <h3>Безопасность</h3>
+                <p>Соблюдение всех норм безопасности, инструкторы и медицинская поддержка</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Подвал -->
+<footer class="footer">
+    <div class="container footer-container">
+        <div class="footer-column">
+            <div class="logo logo-small">
+                <span class="logo-text">Strikeball Arena</span>
+            </div>
+            <p class="footer-description">
+                Организация страйкбольных игр для активных и азартных людей.
+            </p>
+        </div>
+        <div class="footer-column">
+            <h4>Быстрые ссылки</h4>
+            <ul class="footer-links">
+                <li><a href="/games">Игры</a></li>
+                <li><a href="/teams">Команды</a></li>
+                <li><a href="/locations">Полигоны</a></li>
+                <li><a href="/users">Игроки</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Контакты</h4>
+            <ul class="footer-links">
+                <li> +7 (999) 123-45-67</li>
+                <li> info@strikeball-arena.ru</li>
+                <li> г. Москва, ул. Спортивная, 15</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>&copy; <span th:text="${currentYear}"></span> Strikeball Arena. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

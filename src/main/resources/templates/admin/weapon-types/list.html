@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Типы оружия — Админ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Управление типами оружия</h2>
+        <a href="/admin" class="btn btn-outline-small">← Назад в панель</a>
+        <a href="/admin/weapon-types/new" class="btn btn-primary" style="margin-left:10px">Добавить тип</a>
+
+        <div class="games-grid" style="margin-top:20px">
+            <div class="game-card" th:each="weaponType : ${weaponTypes}">
+                <h3 class="game-title" th:text="${weaponType.name}">Название</h3>
+                <p th:text="${weaponType.description}">Описание</p>
+                <a th:href="@{/admin/weapon-types/{id}/edit(id=${weaponType.id})}"
+                   class="btn btn-primary btn-block">Редактировать</a>
+                <form th:action="@{/admin/weapon-types/{id}/delete(id=${weaponType.id})}"
+                      method="post" style="margin-top:8px">
+                    <button type="submit" class="btn btn-outline-small"
+                            onclick="return confirm('Удалить тип?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+        <p th:if="${weaponTypes.isEmpty()}" class="empty-state">Типов пока нет</p>
+    </div>
+</section>
+</body>
+</html>

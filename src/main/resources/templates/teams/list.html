@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Команды — Strikeball Arena</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="header">
+    <div class="container header-container">
+        <a href="/" class="logo">
+            <span class="logo-text">Strikeball Arena</span>
+        </a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link">Главная</a></li>
+                <li><a href="/games" class="nav-link">Игры</a></li>
+                <li><a href="/teams" class="nav-link active">Команды</a></li>
+                <li><a href="/locations" class="nav-link">Полигоны</a></li>
+                <li><a href="/weapons" class="nav-link">Оружие</a></li>
+                <li><a href="/users" class="nav-link">Игроки</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Команды</h2>
+            <a href="/teams/new" class="btn btn-primary">Создать команду</a>
+        </div>
+
+        <form action="/teams" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Поиск по названию..."
+                   th:value="${search}" class="search-input">
+            <button type="submit" class="btn btn-primary">Найти</button>
+            <a href="/teams" class="btn btn-outline-small">Сбросить</a>
+        </form>
+
+        <div class="games-grid">
+            <div class="game-card" th:each="team : ${teams}">
+                <h3 class="game-title" th:text="${team.name}">Название</h3>
+                <p>Девиз: <span th:text="${team.motto}"></span></p>
+                <p>Состав: <span th:text="${team.membersCount}"></span> человек</p>
+                <p>Капитан: <span th:text="${team.captain.nickname}"></span></p>
+                <a th:href="@{/teams/{id}(id=${team.id})}" class="btn btn-primary btn-block">Подробнее</a>
+                <form th:action="@{/teams/{id}/delete(id=${team.id})}" method="post" style="margin-top:8px">
+                    <button type="submit" class="btn btn-outline-small"
+                            onclick="return confirm('Удалить команду?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+        <p th:if="${teams.isEmpty()}" class="empty-state">Команды не найдены</p>
+    </div>
+</section>
+</body>
+</html>

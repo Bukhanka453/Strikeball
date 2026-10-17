@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Игры — Strikeball Arena</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="header">
+    <div class="container header-container">
+        <a href="/" class="logo">
+            <span class="logo-text">Strikeball Arena</span>
+        </a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link">Главная</a></li>
+                <li><a href="/games" class="nav-link active">Игры</a></li>
+                <li><a href="/teams" class="nav-link">Команды</a></li>
+                <li><a href="/locations" class="nav-link">Полигоны</a></li>
+                <li><a href="/weapons" class="nav-link">Оружие</a></li>
+                <li><a href="/users" class="nav-link">Игроки</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Игры</h2>
+            <a href="/games/new" class="btn btn-primary">Создать игру</a>
+        </div>
+
+        <!-- Поиск по названию -->
+        <form action="/games" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Поиск по названию..."
+                   th:value="${search}" class="search-input">
+            <button type="submit" class="btn btn-primary">Найти</button>
+            <a href="/games" class="btn btn-outline-small">Сбросить</a>
+        </form>
+
+        <!-- Список игр -->
+        <div class="games-grid">
+            <div class="game-card" th:each="game : ${games}">
+                <h3 class="game-title" th:text="${game.name}">Название</h3>
+                <p>Дата: <span th:text="${game.date}"></span></p>
+                <p>Игроков: <span th:text="${game.currentPlayers} + ' / ' + ${game.maxPlayers}"></span></p>
+                <a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-primary btn-block">Подробнее</a>
+            </div>
+        </div>
+
+        <p th:if="${games.isEmpty()}" class="empty-state">Игры не найдены</p>
+    </div>
+</section>
+</body>
+</html>

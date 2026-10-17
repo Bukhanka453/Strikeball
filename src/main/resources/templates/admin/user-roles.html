@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Роли пользователя</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">
+            Роли пользователя: <span th:text="${user.nickname}"></span>
+        </h2>
+
+        <form th:action="@{/admin/users/{id}/roles(id=${user.id})}" method="post" class="entity-form">
+            <div class="form-group">
+                <label>Выберите роли:</label>
+                <div th:each="role : ${allRoles}" style="margin:6px 0">
+                    <label style="font-weight:400">
+                        <input type="checkbox" name="roleIds" th:value="${role.id}"
+                               th:checked="${user.roles.contains(role)}">
+                        <span th:text="${role.name} + ' — ' + ${role.description}"></span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="/admin/users" class="btn btn-outline-small">Отмена</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

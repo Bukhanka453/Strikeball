@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Оружие — Админ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Управление оружием</h2>
+        <a href="/admin" class="btn btn-outline-small">← Назад в панель</a>
+        <a href="/admin/weapons/new" class="btn btn-primary" style="margin-left:10px">Добавить оружие</a>
+
+        <div class="games-grid" style="margin-top:20px">
+            <div class="game-card" th:each="weapon : ${weapons}">
+                <h3 class="game-title" th:text="${weapon.name}">Название</h3>
+                <p>Тип: <span th:text="${weapon.type.name}"></span></p>
+                <p>Калибр: <span th:text="${weapon.caliber}"></span></p>
+                <p>Цена: <span th:text="${weapon.price}"></span> ₽</p>
+                <a th:href="@{/admin/weapons/{id}/edit(id=${weapon.id})}"
+                   class="btn btn-primary btn-block">Редактировать</a>
+                <form th:action="@{/admin/weapons/{id}/delete(id=${weapon.id})}"
+                      method="post" style="margin-top:8px">
+                    <button type="submit" class="btn btn-outline-small"
+                            onclick="return confirm('Удалить оружие?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+        <p th:if="${weapons.isEmpty()}" class="empty-state">Оружия пока нет</p>
+    </div>
+</section>
+</body>
+</html>

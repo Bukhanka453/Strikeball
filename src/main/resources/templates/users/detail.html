@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.nickname}">Игрок</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" th:text="${user.nickname}">Никнейм</h2>
+        <div class="entity-form">
+            <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
+            <p><strong>Никнейм:</strong> <span th:text="${user.nickname}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+            <p><strong>Возраст:</strong> <span th:text="${user.age}"></span></p>
+            <p><strong>Телефон:</strong> <span th:text="${user.phone}"></span></p>
+            <a href="/users" class="btn btn-outline-small">← Назад к списку</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

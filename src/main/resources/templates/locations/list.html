@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Полигоны — Strikeball Arena</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="header">
+    <div class="container header-container">
+        <a href="/" class="logo">
+            <span class="logo-text">Strikeball Arena</span>
+        </a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link">Главная</a></li>
+                <li><a href="/games" class="nav-link">Игры</a></li>
+                <li><a href="/teams" class="nav-link">Команды</a></li>
+                <li><a href="/locations" class="nav-link active">Полигоны</a></li>
+                <li><a href="/weapons" class="nav-link">Оружие</a></li>
+                <li><a href="/users" class="nav-link">Игроки</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Полигоны</h2>
+            <a href="/locations/new" class="btn btn-primary">Добавить полигон</a>
+        </div>
+
+        <form action="/locations" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Поиск по названию..."
+                   th:value="${search}" class="search-input">
+            <button type="submit" class="btn btn-primary">Найти</button>
+            <a href="/locations" class="btn btn-outline-small">Сбросить</a>
+        </form>
+
+        <div class="games-grid">
+            <div class="game-card" th:each="location : ${locations}">
+                <h3 class="game-title" th:text="${location.name}">Название</h3>
+                <p>Адрес: <span th:text="${location.address}"></span></p>
+                <p>Площадь: <span th:text="${location.areaHectares}"></span> га</p>
+                <p>Ответственный: <span th:text="${location.owner.nickname}"></span></p>
+                <a th:href="@{/locations/{id}(id=${location.id})}" class="btn btn-primary btn-block">Подробнее</a>
+                <form th:action="@{/locations/{id}/delete(id=${location.id})}" method="post" style="margin-top:8px">
+                    <button type="submit" class="btn btn-outline-small"
+                            onclick="return confirm('Удалить полигон?')">Удалить</button>
+                </form>
+            </div>
+        </div>
+        <p th:if="${locations.isEmpty()}" class="empty-state">Полигоны не найдены</p>
+    </div>
+</section>
+</body>
+</html>

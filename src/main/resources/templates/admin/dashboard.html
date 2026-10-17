@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель — Strikeball Arena</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="header">
+    <div class="container header-container">
+        <a href="/" class="logo">
+            <span class="logo-icon"></span>
+            <span class="logo-text">Strikeball Arena</span>
+        </a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/" class="nav-link">Главная</a></li>
+                <li><a href="/admin" class="nav-link active">Админ-панель</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Админ-панель</h2>
+        <p>Управление всеми таблицами базы данных.</p>
+
+        <div class="features-grid" style="margin-top:30px">
+            <a href="/admin/users" class="feature-item" style="text-decoration:none;color:inherit">
+                <h3>Пользователи</h3>
+                <p>Роли, доступы, редактирование</p>
+            </a>
+            <a href="/admin/roles" class="feature-item" style="text-decoration:none;color:inherit">
+                <h3>Роли</h3>
+                <p>ADMIN, ORGANIZER, PLAYER</p>
+            </a>
+            <a href="/admin/games" class="feature-item" style="text-decoration:none;color:inherit">
+                <h3>Игры</h3>
+                <p>Создание, редактирование, удаление</p>
+            </a>
+            <a href="/admin/teams" class="feature-item" style="text-decoration:none;color:inherit">
+                <h3>Команды</h3>
+                <p>Капитаны, состав, девизы</p>
+            </a>
+            <a href="/admin/locations" class="feature-item" style="text-decoration:none;color:inherit">
+                <h3>Полигоны</h3>
+                <p>Адреса, площадь, ответственные</p>
+            </a>
+            <a href="/admin/weapons" class="feature-item" style="text-decoration:none;color:inherit">
+                <h3>Оружие</h3>
+                <p>Модели, калибр, цена</p>
+            </a>
+            <a href="/admin/weapon-types" class="feature-item" style="text-decoration:none;color:inherit">
+                <h3>Типы оружия</h3>
+                <p>Справочник типов</p>
+            </a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

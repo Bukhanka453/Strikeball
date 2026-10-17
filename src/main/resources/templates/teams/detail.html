@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${team.name}">Команда</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" th:text="${team.name}">Название команды</h2>
+        <div class="entity-form">
+            <p><strong>ID:</strong> <span th:text="${team.id}"></span></p>
+            <p><strong>Название:</strong> <span th:text="${team.name}"></span></p>
+            <p><strong>Девиз:</strong> <span th:text="${team.motto}"></span></p>
+            <p><strong>Состав:</strong> <span th:text="${team.membersCount}"></span> человек</p>
+            <p><strong>Капитан:</strong> <span th:text="${team.captain.nickname}"></span></p>
+            <a href="/teams" class="btn btn-outline-small">← Назад к списку</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${game.name}">Игра</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" th:text="${game.name}">Название игры</h2>
+        <div class="entity-form">
+            <p><strong>ID:</strong> <span th:text="${game.id}"></span></p>
+            <p><strong>Дата:</strong> <span th:text="${game.date}"></span></p>
+            <p><strong>Полигон:</strong> <span th:text="${game.location.name}"></span></p>
+            <p><strong>Адрес полигона:</strong> <span th:text="${game.location.address}"></span></p>
+            <p><strong>Организатор:</strong> <span th:text="${game.team.name}"></span></p>
+            <p><strong>Игроков:</strong>
+                <span th:text="${game.currentPlayers} + ' / ' + ${game.maxPlayers}"></span></p>
+            <p><strong>Описание:</strong> <span th:text="${game.description}"></span></p>
+            <a href="/games" class="btn btn-outline-small">← Назад к списку</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

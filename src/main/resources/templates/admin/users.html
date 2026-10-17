@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление пользователями</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Управление пользователями</h2>
+        <a href="/admin" class="btn btn-outline-small">← На главную</a>
+
+        <div class="games-grid" style="margin-top:20px">
+            <div class="game-card" th:each="u : ${users}">
+                <h3 class="game-title" th:text="${u.nickname}">Никнейм</h3>
+                <p>Email: <span th:text="${u.email}"></span></p>
+                <p>Роли:
+                    <span th:each="r, iter : ${u.roles}"
+                          th:text="${r.name} + (${iter.last} ? '' : ', ')"></span>
+                </p>
+                <a th:href="@{/admin/users/{id}/roles(id=${u.id})}"
+                   class="btn btn-primary btn-block">Изменить роли</a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

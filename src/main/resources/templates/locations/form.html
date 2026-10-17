@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Полигон — Strikeball Arena</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Полигон</h2>
+
+        <form th:action="@{/locations}" th:object="${location}" method="post" class="entity-form">
+
+            <div class="form-group">
+                <label>Название полигона:</label>
+                <input type="text" th:field="*{name}" class="form-input">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Адрес:</label>
+                <input type="text" th:field="*{address}" class="form-input">
+                <span class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Площадь (га):</label>
+                <input type="number" th:field="*{areaHectares}" class="form-input">
+                <span class="error" th:if="${#fields.hasErrors('areaHectares')}" th:errors="*{areaHectares}"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Описание:</label>
+                <textarea th:field="*{description}" class="form-input" rows="3"></textarea>
+                <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            </div>
+
+            <!-- Выбор ответственного по никнейму -->
+            <div class="form-group">
+                <label>Ответственный за полигон:</label>
+                <select th:field="*{owner}" class="form-input">
+                    <option value="">-- Выберите ответственного --</option>
+                    <option th:each="u : ${users}"
+                            th:value="${u.id}"
+                            th:text="${u.nickname}">
+                    </option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="/locations" class="btn btn-outline-small">Отмена</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>="error" th:if="${#fields.hasErrors('address')}" th:
